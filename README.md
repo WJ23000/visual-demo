@@ -1,5 +1,9 @@
 # visual-demo
 
+# 技术栈
+
+> Vue+Vue-Router+Less+DataV
+
 ## Project setup
 ```
 yarn install
