@@ -1,22 +1,14 @@
 <template>
-    <div>
+    <div class="index">
         <dataV/>
     </div>
 </template>
+
 <script>
-import dataV from '@/components/datav/index.vue'
-export default {
-  name: 'Index',
-  components: {
-    dataV
-  },
-  data () {
-    return {
-      
-    }
-  },
-  created () {
-      
-  }
-}
+  import index from "./index";
+  export default index;
 </script>
+
+<style scoped>
+  @import './index.less'
+</style>
