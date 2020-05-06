@@ -2,7 +2,7 @@
 
 # 技术栈
 
-> Vue+Vue-Router+Less+DataV
+> Vue+Vue-Router+Less+DataV+AntV
 
 ## Project setup
 ```
