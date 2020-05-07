@@ -4,29 +4,38 @@ import QS from 'qs';
 // http request 拦截器
 axios.interceptors.request.use(
     config => {
-        const token = localStorage.getItem("token");
-        config.data = JSON.stringify(config.data);
+        const token = localStorage.getItem("token") ? localStorage.getItem("token") : "aa 227979840803202";
+        // config.data = JSON.stringify(config.data);
         config.headers = {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache',
+            'rentId': 'CMS'
         }
-        if(token){
-          config.params = {'token':token}
+        if (token) {
+            config.headers = { 'token': token }
         }
         return config;
     },
     error => {
-        return Promise.reject(err);
+        return Promise.reject(error);
     }
 );
 
 // http response 拦截器
 axios.interceptors.response.use(
     response => {
-        if (response.data.errCode == 533) {
-            router.push({
-                path: "/Login",
-                query: { redirect: router.currentRoute.fullPath } //从哪个页面跳转
-            })
+        let code = response.data.status;
+        if (code && code != 400200) {
+            if (code === 400403) { // token失效
+                router.push({
+                    path: "/Login",
+                    query: { redirect: router.currentRoute.fullPath } // 从哪个页面跳转
+                })
+            }
+            if (code === 400406) { // 无页面访问权限跳指定页面
+                window.location.replace(window.location.href.replace(/#\/.*/, '#/401'));
+            }
         }
         return response;
     },
@@ -41,14 +50,13 @@ axios.interceptors.response.use(
  * @param data
  * @returns {Promise}
 */
-export function get(url, params={}) {
+export function get(url, params = {}) {
     return new Promise((resolve, reject) => {
         axios.get(url, {
             params: QS.stringify(params)
         }).then(response => {
             resolve(response.data);
-        })
-        .catch(err => {
+        }).catch(err => {
             reject(err)
         })
     })
@@ -62,10 +70,9 @@ export function get(url, params={}) {
 */
 export function post(url, params) {
     return new Promise((resolve, reject) => {
-        axios.post(url, params)
-        .then(response => {
+        axios.post(url, params).then(response => {
             resolve(response.data);
-        }, err => {
+        }).catch(err => {
             reject(err)
         })
     })
