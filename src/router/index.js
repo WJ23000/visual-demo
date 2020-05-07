@@ -14,13 +14,22 @@ export const staticRoutes = [
     component: resolve => require(['@/pages/login/login.vue'], resolve)
   },
   {
-    path: '/error',
-    name: 'error',
+    path: '/404',
+    name: '404',
     meta: {
       index: 0,
       needlogin: false
     }, // meta对象的index用来定义当前路由的层级,由小到大,由低到高
-    component: resolve => require(['@/pages/error/error.vue'], resolve)
+    component: resolve => require(['@/pages/404/404.vue'], resolve)
+  },
+  {
+    path: '/401',
+    name: '401',
+    meta: {
+      index: 0,
+      needlogin: false
+    }, // meta对象的index用来定义当前路由的层级,由小到大,由低到高
+    component: resolve => require(['@/pages/401/401.vue'], resolve)
   },
 ]
 

@@ -1,11 +1,11 @@
 <template>
     <div>
-        404
+        暂无当前页面访问权限
     </div>
 </template>
 <script>
 export default {
-  name: 'Error',
+  name: '401',
   data () {
     return {
       
